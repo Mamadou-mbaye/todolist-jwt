@@ -18,17 +18,17 @@ const sequelize = new Sequelize(db_name, db_user, db_password, {
 });
 
 // creare un model nel db
-export const Users = sequelize.define("users", {
+const Users = sequelize.define("users", {
   //i campi con alloNull: false, sono essenziali mentre quelli con allowNull: true sono opzionali
   firstName: { type: DataTypes.STRING, allowNull: false },
   lastName: { type: DataTypes.STRING, allowNull: false },
-  birthDate:{ type: DataTypes.DATE, allowNull: false },
+  birthDate: { type: DataTypes.DATE, allowNull: false },
   email: { type: DataTypes.STRING, allowNull: false },
   password: { type: DataTypes.STRING, allowNull: false },
   refreshToken: { type: DataTypes.STRING, allowNull: true },
 });
 
-export const Tasks = sequelize.define("tasks", {
+const Tasks = sequelize.define("tasks", {
   taskName: { type: DataTypes.STRING, allowNull: false }, // Nome del compito è essenziale
   description: { type: DataTypes.STRING, allowNull: true }, // Descrizione è opzionale
   dueDate: { type: DataTypes.DATE, allowNull: true }, // Data di scadenza è opzionale
@@ -41,7 +41,7 @@ export const Tasks = sequelize.define("tasks", {
 Users.hasMany(Tasks);
 Tasks.belongsTo(Users);
 
-export const connect = async () => {
+const connect = async () => {
   try {
     await sequelize.authenticate(); //provare a stabilire la connessione con il db
     await sequelize.sync(); // sincronnizare i modelli creati con il database
@@ -50,3 +50,5 @@ export const connect = async () => {
     console.error("Unable to connect to the database:", error);
   }
 };
+
+export { Users, Tasks, connect };

@@ -5,21 +5,19 @@ import {
   deleteUser,
 } from "../services/user.service.js";
 
-/*  firstName: {  allowNull: false },
-    lastName: { allowNull: false },
-    birthDate: { allowNull: false },
-    email: {  allowNull: false },
-    password: { allowNull: false },
-    refreshToken: { allowNull: true },
-  */
-
-export const registerUserController = async (req, res) => {
+const registerUserController = async (req, res) => {
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const birthDate = req.body.birthDate;
   const email = req.body.email;
   const password = req.body.password;
-  if (!firstName || !lastName || !birthDate || !email || !password) {
+  if (
+    !firstName.trim() ||
+    !lastName.trim() ||
+    !birthDate ||
+    !email.trim() ||
+    !password.trim()
+  ) {
     //verificare che i parametri sono riempiti
     return res.status(400).send({ message: "All data are required" });
   }
@@ -38,7 +36,7 @@ export const registerUserController = async (req, res) => {
   }
 };
 
-export const findUserByEmailController = async (req, res) => {
+const findUserByEmailController = async (req, res) => {
   const email = req.params.email;
   try {
     const user = await findUserByEmail(email);
@@ -53,7 +51,7 @@ export const findUserByEmailController = async (req, res) => {
   }
 };
 
-export const updateUserController = async (req, res) => {
+const updateUserController = async (req, res) => {
   const email = req.params.email;
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
@@ -81,7 +79,7 @@ export const updateUserController = async (req, res) => {
   }
 };
 
-export const deleteUserController = async (req, res) => {
+const deleteUserController = async (req, res) => {
   const email = req.params.email;
   try {
     const user = await findUserByEmail(email);
@@ -96,4 +94,11 @@ export const deleteUserController = async (req, res) => {
       .status(500)
       .send({ message: "An error occurred while deleting user" });
   }
+};
+
+export {
+  registerUserController,
+  findUserByEmailController,
+  updateUserController,
+  deleteUserController,
 };

@@ -6,7 +6,7 @@ import {
   deleteTask,
 } from "../services/task.service.js";
 
-export const registerTaskController = async (req, res) => {
+const registerTaskController = async (req, res) => {
   //registare un task passando i parametri riquisti
   const taskName = req.body.taskName;
   const description = req.body.description;
@@ -50,7 +50,7 @@ export const registerTaskController = async (req, res) => {
   }
 };
 
-export const findTasksController = async (req, res) => {
+const findTasksController = async (req, res) => {
   try {
     const tasks = await findTasks();
     if (tasks.length === 0)
@@ -65,7 +65,7 @@ export const findTasksController = async (req, res) => {
   }
 };
 
-export const updateTaskController = async (req, res) => {
+const updateTaskController = async (req, res) => {
   const id = Number(req.params.id);
   const taskName = req.body.taskName;
   const description = req.body.description;
@@ -94,7 +94,7 @@ export const updateTaskController = async (req, res) => {
   }
 };
 
-export const deleteTaskController = async (req, res) => {
+const deleteTaskController = async (req, res) => {
   const id = Number(req.params.id);
   try {
     const task = await findTask(id);
@@ -107,4 +107,10 @@ export const deleteTaskController = async (req, res) => {
       .status(500)
       .send({ message: "An error occurred while deleting the task" });
   }
+};
+export {
+  registerTaskController,
+  findTasksController,
+  updateTaskController,
+  deleteTaskController,
 };

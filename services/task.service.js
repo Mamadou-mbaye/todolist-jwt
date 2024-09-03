@@ -1,6 +1,6 @@
 import { Tasks } from "../models/model.js";
 
-export const registerTask = (
+const registerTask = (
   taskName,
   description,
   dueDate,
@@ -19,15 +19,15 @@ export const registerTask = (
   });
 };
 
-export const findTask = (id) => {
+const findTask = (id) => {
   //trovare un task passando il suo id
   return Tasks.findByPk(id);
 };
-export const findTasks = () => {
+const findTasks = () => {
   //trovare tutti i tasks
   return Tasks.findAll();
 };
-export const updateTask = (
+const updateTask = (
   id,
   taskName,
   description,
@@ -42,7 +42,8 @@ export const updateTask = (
   );
 };
 
-export const deleteTask = (id) => {
+const deleteTask = (id) => {
   //cancellare un task passando dal suo id
   return Tasks.destroy({ where: { id } });
 };
+export { registerTask, findTask, findTasks, updateTask, deleteTask };

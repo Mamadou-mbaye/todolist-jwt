@@ -1,4 +1,5 @@
 import express from "express";
+import { authenticateJWT } from "../middleware/authtenticate.js";
 import {
   registerUserController,
   findUserByEmailController,
@@ -16,13 +17,13 @@ import {
 const router = express.Router();
 
 router.post("/register", registerUserController);
-router.get("/user/:email", findUserByEmailController);
-router.put("/update/:email", updateUserController);
-router.delete("/delete/:email", deleteUserController);
+router.get("/user/:email", authenticateJWT ,findUserByEmailController);
+router.put("/update/:email",  authenticateJWT,updateUserController);
+router.delete("/delete/:email",  authenticateJWT,deleteUserController);
 
-router.post("/tasklist/register", registerTaskController);
-router.get("/tasklist/tasks", findTasksController);
-router.put("/tasklist/update/:id", updateTaskController);
-router.delete("/tasklist/delete/:id", deleteTaskController);
+router.post("/tasklist/register",  authenticateJWT,registerTaskController);
+router.get("/tasklist/tasks", authenticateJWT, findTasksController);
+router.put("/tasklist/update/:id",  authenticateJWT,updateTaskController);
+router.delete("/tasklist/delete/:id",  authenticateJWT,deleteTaskController);
 
 export { router };

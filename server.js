@@ -1,4 +1,5 @@
 import express from "express";
+import { authRouter } from "./routes/auth.router.js";
 import { router } from "./routes/user.router.js";
 import { connect } from "./models/model.js";
 import dotenv from "dotenv";
@@ -8,6 +9,7 @@ const app = express();
 const port = process.env.SERVER_PORT || 3000; // usare la porta definito nel file dotenv
 
 app.use(express.json());
+app.use("/", authRouter);
 app.use("/", router);
 
 app.listen(port, async () => {
